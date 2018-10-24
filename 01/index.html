@@ -22,29 +22,16 @@
     </button>
     <script>
 
-
-
-
-
-
-
-
-        const my_canvas = document.createElement('canvas');
+        let my_canvas = document.createElement('canvas');
         my_canvas.width = 500;
         my_canvas.height = 500;
         document.body.appendChild(my_canvas)
 
-        const ctx = my_canvas.getContext('2d')
-        let x = my_canvas.width / 2
-        let y = my_canvas.height / 2
-        let h = rand(10, 50)
-        let r = rand(0, 240)
-        let g = rand(0, 240)
-        let b = rand(0, 240)
-        let speedX = rand(-1000,1000)/100
-        let speedY = rand(-1000,1000)/100
-        const fps = 60
+        let ctx = my_canvas.getContext('2d')
 
+        const allSquers = []
+
+        const fps = 30
 
         let lastTime = 0
 
@@ -52,15 +39,44 @@
             requestAnimationFrame(animationLoop)
             if (time - lastTime >= 1000 / fps) {
                 lastTime = time
-                ctx.fillStyle = 'rgba(255,255,255,0.2)'
+
+                ctx.fillStyle = 'rgba(255,255,255,0.3)'
                 ctx.fillRect(0, 0, my_canvas.width, my_canvas.height)
-                ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')'
-                x = x + speedX
-                y = y + speedY
-                ctx.fillRect(x - h / 2, y - h / 2, h, h)
+
+                allSquers.push({
+                    x: my_canvas.width / 2,
+                    y: my_canvas.height / 2,
+                    h: rand(10, 50),
+                    r: rand(0, 240),
+                    g: rand(0, 240),
+                    b: rand(0, 240),
+                    speedX: rand(-1000, 1000) / 100,
+                    speedY: rand(-1000, 1000) / 100,
+                })
+
+                if (allSquers[allSquers.length - 1].speedX == 0 && allSquers[allSquers.length - 1].speedY == 0) {
+                    square.speedX = 1;
+                }
+                for (let i = 0; i < allSquers.length; i++) {
+                    let square = allSquers[i]
+                    ctx.fillStyle = 'rgb(' + square.r + ',' + square.g + ',' + square.b + ')'
+                    square.x = square.x + square.speedX
+                    square.y = square.y + square.speedY
+                    ctx.fillRect(square.x - square.h / 2, square.y - square.h / 2, square.h, square.h)
+                }
+
+
             }
+
+
+
+
+
+
+
+
         }
-        animationLoop()
+        //animationLoop()
 
         function rand(min, max) {
             return Math.floor(Math.random() * (max - min) + min)
