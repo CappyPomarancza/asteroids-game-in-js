@@ -38,20 +38,27 @@
         let x = my_canvas.width / 2
         let y = my_canvas.height / 2
         let h = 40
-        const fps = 60
+        const fps = 10
 
-       
-        const animationLoop = () => {
-            ctx.fillStyle='rgba(255,255,255,0.2)'
-            ctx.fillRect(0,0, my_canvas.width, my_canvas.height)
-            ctx.fillStyle = 'black'
+        let lastTime = 0
 
+        const animationLoop = (time) => {
+            requestAnimationFrame(animationLoop)
+            if (time - lastTime >= 1000 / fps) {
+                lastTime = time
+                ctx.fillStyle = 'rgba(255,255,255,0.2)'
+                ctx.fillRect(0, 0, my_canvas.width, my_canvas.height)
+                ctx.fillStyle = 'black'
+                x = x + 2
+                y = y + 2
+                ctx.fillRect(x - h / 2, y - h / 2, h, h)
+            }else{
 
-            x = x + 1
-            y = y + 1
-            ctx.fillRect(x - h / 2, y - h / 2, h, h)
+            }
+
         }
-        setInterval(animationLoop,1000/fps)
+
+        //setInterval(animationLoop,1000/fps)
 
 
 
