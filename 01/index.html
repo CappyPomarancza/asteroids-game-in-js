@@ -37,8 +37,14 @@
         const ctx = my_canvas.getContext('2d')
         let x = my_canvas.width / 2
         let y = my_canvas.height / 2
-        let h = 40
-        const fps = 10
+        let h = rand(10, 50)
+        let r = rand(0, 240)
+        let g = rand(0, 240)
+        let b = rand(0, 240)
+        let speedX = rand(-1000,1000)/100
+        let speedY = rand(-1000,1000)/100
+        const fps = 60
+
 
         let lastTime = 0
 
@@ -48,17 +54,17 @@
                 lastTime = time
                 ctx.fillStyle = 'rgba(255,255,255,0.2)'
                 ctx.fillRect(0, 0, my_canvas.width, my_canvas.height)
-                ctx.fillStyle = 'black'
-                x = x + 2
-                y = y + 2
+                ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')'
+                x = x + speedX
+                y = y + speedY
                 ctx.fillRect(x - h / 2, y - h / 2, h, h)
-            }else{
-
             }
-
         }
+        animationLoop()
 
-        //setInterval(animationLoop,1000/fps)
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min) + min)
+        }
 
 
 
