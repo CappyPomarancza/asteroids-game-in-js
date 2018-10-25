@@ -23,13 +23,14 @@
     <script>
 
         let my_canvas = document.createElement('canvas');
-        my_canvas.width = 500;
-        my_canvas.height = 500;
+        my_canvas.width = window.innerWidth;
+        my_canvas.height = window.innerHeight;
         document.body.appendChild(my_canvas)
 
         let ctx = my_canvas.getContext('2d')
 
-        const allSquers = []
+        let allSquers = []
+        const squersView = []
 
         const fps = 30
 
@@ -42,30 +43,46 @@
 
                 ctx.fillStyle = 'rgba(255,255,255,0.3)'
                 ctx.fillRect(0, 0, my_canvas.width, my_canvas.height)
+                for (let i=0; i < 15; i++) {
+                    allSquers.push({
+                        x: my_canvas.width / 2,
+                        y: my_canvas.height / 2,
+                        h: rand(0.5, 10),
+                        r: 255,
+                        g: rand(0, 240),
+                        b: rand(0, 100),
+                        speedX: rand(-1000, 1000) / 100,
+                        speedY: rand(-1000, 1000) / 100,
+                    })
+                }
 
-                allSquers.push({
-                    x: my_canvas.width / 2,
-                    y: my_canvas.height / 2,
-                    h: rand(10, 50),
-                    r: rand(0, 240),
-                    g: rand(0, 240),
-                    b: rand(0, 240),
-                    speedX: rand(-1000, 1000) / 100,
-                    speedY: rand(-1000, 1000) / 100,
-                })
 
                 if (allSquers[allSquers.length - 1].speedX == 0 && allSquers[allSquers.length - 1].speedY == 0) {
                     square.speedX = 1;
                 }
+                squersView.length = 0
+
                 for (let i = 0; i < allSquers.length; i++) {
                     let square = allSquers[i]
                     ctx.fillStyle = 'rgb(' + square.r + ',' + square.g + ',' + square.b + ')'
                     square.x = square.x + square.speedX
                     square.y = square.y + square.speedY
+
+                    square.speedY+= 0.2
+                    square.r = Math.min(255,square.r +5)
+                    square.g = Math.min(255,square.g +5)
+                    square.b = Math.min(255,square.b +5)
+                    
                     ctx.fillRect(square.x - square.h / 2, square.y - square.h / 2, square.h, square.h)
+
+                    if (square.x + square.h / 2 > 0 && square.x - square.h / 2 < my_canvas.width &&
+                        square.y + square.h / 2 > 0 && square.y - square.h / 2 < my_canvas.height
+                        && square.r != 255|| square.g != 255 || square.b != 255 ) {
+                        squersView.push(square)
+                    }
                 }
 
-
+                allSquers = squersView.concat()
             }
 
 
