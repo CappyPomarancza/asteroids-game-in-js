@@ -34,7 +34,7 @@
         const squersView = []
         let ease = 'easeInOutExpo'
 
-        const fps = 30
+        const fps = 50
 
         let lastTime = 0
 
@@ -43,40 +43,50 @@
             if (time - lastTime >= 1000 / fps) {
                 lastTime = time
 
-                ctx.fillStyle = 'rgba(255,255,255,0.3)'
-                ctx.fillRect(0, 0, my_canvas.width, my_canvas.height)
+                ctx.clearRect(0, 0, my_canvas.width, my_canvas.height)
+                squersView.length = 0
+                
                 for (let i = 0; i < 15; i++) {
                     allSquers.push({
                         start_x: my_canvas.width / 2,
                         start_y: my_canvas.height / 2,
-                        target_x: rand(0, my_canvas.width),
-                        target_y: rand(0, my_canvas.height),
+                        target_r: Math.round(my_canvas.height * 0.4),
+                        //kąt początkowy (pod którym będzię się poruszać kwadrat)
+                        start_a: rand(0, 360),
+
                         t: 0,
                         d: 2000,
                         h: rand(0.5, 10),
-                        r: 255,
-                        g: rand(0, 240),
-                        b: rand(0, 100)
+                        start_r: 255,
+                        start_g: rand(0, 240),
+                        start_b: rand(0, 100)
                     })
                 }
 
-
-                if (allSquers[allSquers.length - 1].speedX == 0 && allSquers[allSquers.length - 1].speedY == 0) {
-                    square.speedX = 1;
-                }
-                squersView.length = 0
+                // if (allSquers[allSquers.length - 1].speedX == 0 && allSquers[allSquers.length - 1].speedY == 0) {
+                //     square.speedX = 1;
+                // }
+                // squersView.length = 0
 
                 for (let i = 0; i < allSquers.length; i++) {
                     let square = allSquers[i]
-                    
-                    square.t += 1000/fps
 
-                    ctx.fillStyle = 'rgb(' + square.r + ',' + square.g + ',' + square.b + ')'
-                    square.x = Easing.get(ease, square.start_x, square.target_x, square.t, square.d)
-                    square.y = Easing.get(ease, square.start_y, square.target_y, square.t, square.d)
+                    square.t += 1000 / fps
+                    //
+                    //aktualny promień rośnie od 0 do target_r
+                    square.r = Easing.get(ease, 0, square.target_r, square.t, square.d)
+                    //kąt ruchu rośnie od wartości początkowej do wartości początkowej + 180 stopni
+                    square.a = Easing.get(ease, square.start_a, square.start_a+180, square.t, square.d)
 
 
-                    // gravitation and random colors 
+                    square.x= Math.sin(Math.PI/180 * square.a)*square.r + square.start_x
+                    square.y= Math.cos(Math.PI/180 * square.a)*square.r + square.start_y
+                    // 
+                    ctx.fillStyle = 'rgba(' + square.start_r + ',' + square.start_g + ',' + square.start_b + ')'
+
+
+
+                    // gravity and random colors 
                     // square.speedY += 0.2
                     // square.r = Math.min(255, square.r + 5)
                     // square.g = Math.min(255, square.g + 5)
@@ -101,35 +111,13 @@
 
 
         }
-        //animationLoop()
+        
 
         function rand(min, max) {
             return Math.floor(Math.random() * (max - min) + min)
         }
 
 
-
-
-
-        // ctx.fillRect(30, 30, 100, 100)
-
-        // ctx.strokeRect(140, 30, 50, 50)
-        // ctx.clearRect(50, 50, 50, 50)
-        // ctx.beginPath()
-        // ctx.moveTo(30, 140)
-        // ctx.lineTo(100, 140)
-        // ctx.lineTo(60, 250)
-        // ctx.lineTo(10, 150)
-        // ctx.fill()
-
-        // ctx.beginPath()
-        // ctx.arc(300, 150, 100, Math.PI/180 *45,Math.PI/180 *-120, true)
-        // ctx.stroke()
-
-        // ctx.beginPath()
-        // ctx.moveTo(200, 250)
-        // ctx.bezierCurveTo(200, 100, 400, 400, 400, 250)
-        // ctx.stroke()
     </script>
 
 </body>
