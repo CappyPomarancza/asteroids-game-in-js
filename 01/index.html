@@ -20,6 +20,7 @@
     <button onclick="animationLoop()">
         Start animation
     </button>
+    <script src='../03/easing.js'></script>
     <script>
 
         let my_canvas = document.createElement('canvas');
@@ -31,6 +32,7 @@
 
         let allSquers = []
         const squersView = []
+        let ease = 'easeInOutExpo'
 
         const fps = 30
 
@@ -43,16 +45,18 @@
 
                 ctx.fillStyle = 'rgba(255,255,255,0.3)'
                 ctx.fillRect(0, 0, my_canvas.width, my_canvas.height)
-                for (let i=0; i < 15; i++) {
+                for (let i = 0; i < 15; i++) {
                     allSquers.push({
-                        x: my_canvas.width / 2,
-                        y: my_canvas.height / 2,
+                        start_x: my_canvas.width / 2,
+                        start_y: my_canvas.height / 2,
+                        target_x: rand(0, my_canvas.width),
+                        target_y: rand(0, my_canvas.height),
+                        t: 0,
+                        d: 2000,
                         h: rand(0.5, 10),
                         r: 255,
                         g: rand(0, 240),
-                        b: rand(0, 100),
-                        speedX: rand(-1000, 1000) / 100,
-                        speedY: rand(-1000, 1000) / 100,
+                        b: rand(0, 100)
                     })
                 }
 
@@ -64,20 +68,24 @@
 
                 for (let i = 0; i < allSquers.length; i++) {
                     let square = allSquers[i]
-                    ctx.fillStyle = 'rgb(' + square.r + ',' + square.g + ',' + square.b + ')'
-                    square.x = square.x + square.speedX
-                    square.y = square.y + square.speedY
-
-                    square.speedY+= 0.2
-                    square.r = Math.min(255,square.r +5)
-                    square.g = Math.min(255,square.g +5)
-                    square.b = Math.min(255,square.b +5)
                     
+                    square.t += 1000/fps
+
+                    ctx.fillStyle = 'rgb(' + square.r + ',' + square.g + ',' + square.b + ')'
+                    square.x = Easing.get(ease, square.start_x, square.target_x, square.t, square.d)
+                    square.y = Easing.get(ease, square.start_y, square.target_y, square.t, square.d)
+
+
+                    // gravitation and random colors 
+                    // square.speedY += 0.2
+                    // square.r = Math.min(255, square.r + 5)
+                    // square.g = Math.min(255, square.g + 5)
+                    // square.b = Math.min(255, square.b + 5)
+
                     ctx.fillRect(square.x - square.h / 2, square.y - square.h / 2, square.h, square.h)
 
-                    if (square.x + square.h / 2 > 0 && square.x - square.h / 2 < my_canvas.width &&
-                        square.y + square.h / 2 > 0 && square.y - square.h / 2 < my_canvas.height
-                        && square.r != 255|| square.g != 255 || square.b != 255 ) {
+                    if (square.t <= square.d) {
+                        //view squares 
                         squersView.push(square)
                     }
                 }
