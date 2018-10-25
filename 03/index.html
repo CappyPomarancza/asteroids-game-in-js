@@ -2,30 +2,60 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Function</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>easing</title>
 </head>
 
 <body>
-    <button>click</button>
-    <script>
+	<button onclick="animationLoop()">click</button>
+	<script src='easing.js'></script>
+	<script>
 
-        function circleArea(r) {
-            return Math.PI * r * r
-        }
+		const my_canvas = document.createElement('canvas');
+		my_canvas.width = window.innerWidth;
+		my_canvas.height = window.innerHeight;
+		//
+		document.body.appendChild(my_canvas);
+		//
+		const ctx = my_canvas.getContext('2d');
+		//
+		let x = 0;
+		let y = 100;
+		let h = 100;
+		let forward = true;
+		let d = 1000
+		let t = 0
+		// 
+		const fps = 50;
+		let lastTime = 0;
+		;
+		//
+		function animationLoop(time) {
+			requestAnimationFrame(animationLoop);
+			if (time - lastTime >= 1000 / fps) {
+				lastTime = time;
+				// czyszczenie całej canvas
+				ctx.clearRect(0, 0, my_canvas.width, my_canvas.height);
+				// rysowanie
+				ctx.fillRect(x, y, h, h);
+				x = Easing.get('easeOutBack',
+					(forward ? my_canvas.width * 0.1 : my_canvas.width * 0.9 - h),
+					(forward ? my_canvas.width * 0.9 - h : my_canvas.width * 0.1),
+					t,
+					d
+				)
 
-        function sumCircleArea(r1, r2) {
-            return (circleArea(r1) + circleArea(r2))
-        }
+				t += 1000 / fps
 
-        const area = sumCircleArea(9 , 100)
-        console.log(area)
-
-
-
-    </script>
+				if (t >= d) {
+					forward = !forward
+					t = 0
+				}
+			}
+		}
+	</script>
 
 
 </body>
