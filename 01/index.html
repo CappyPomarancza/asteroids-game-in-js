@@ -24,8 +24,16 @@
     <script>
 
         let my_canvas = document.createElement('canvas');
-        my_canvas.width = window.innerWidth;
-        my_canvas.height = window.innerHeight;
+
+        const layout = (event) => {
+            my_canvas.width = window.innerWidth;
+            my_canvas.height = window.innerHeight;
+            console.log(my_canvas.width)
+        }
+        layout()
+        window.addEventListener('resize', layout, false)
+
+
         document.body.appendChild(my_canvas)
 
         let ctx = my_canvas.getContext('2d')
@@ -45,12 +53,12 @@
 
                 ctx.clearRect(0, 0, my_canvas.width, my_canvas.height)
                 squersView.length = 0
-                
+
                 for (let i = 0; i < 15; i++) {
                     allSquers.push({
-                        start_x: my_canvas.width / 2,
-                        start_y: my_canvas.height / 2,
-                        target_r: Math.round(my_canvas.height * 0.4),
+                        start_x: 0.5,
+                        start_y: 0.5,
+                        target_r: 0.4,
                         //kąt początkowy (pod którym będzię się poruszać kwadrat)
                         start_a: rand(0, 360),
 
@@ -74,13 +82,13 @@
                     square.t += 1000 / fps
                     //
                     //aktualny promień rośnie od 0 do target_r
-                    square.r = Easing.get(ease, 0, square.target_r, square.t, square.d)
+                    square.r = Easing.get(ease, 0, square.target_r *my_canvas.height, square.t, square.d)
                     //kąt ruchu rośnie od wartości początkowej do wartości początkowej + 180 stopni
-                    square.a = Easing.get(ease, square.start_a, square.start_a+180, square.t, square.d)
+                    square.a = Easing.get(ease, square.start_a, square.start_a + 180, square.t, square.d)
 
 
-                    square.x= Math.sin(Math.PI/180 * square.a)*square.r + square.start_x
-                    square.y= Math.cos(Math.PI/180 * square.a)*square.r + square.start_y
+                    square.x = Math.sin(Math.PI / 180 * square.a) * square.r + square.start_x * my_canvas.width
+                    square.y = Math.cos(Math.PI / 180 * square.a) * square.r + square.start_y * my_canvas.height
                     // 
                     ctx.fillStyle = 'rgba(' + square.start_r + ',' + square.start_g + ',' + square.start_b + ')'
 
@@ -111,7 +119,7 @@
 
 
         }
-        
+
 
         function rand(min, max) {
             return Math.floor(Math.random() * (max - min) + min)
