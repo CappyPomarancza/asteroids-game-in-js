@@ -46,6 +46,8 @@ Game = {
 					Game.key_39 = false
 				} else if (event.keyCode == 39) {
 					Game.key_37 = false
+				}else if(event.keyCode == 32){
+					new Bullet()
 				}
 			} else if (event.type == 'keyup') {
 				Game['key_' + event.keyCode] = false;
@@ -83,6 +85,8 @@ Game = {
 			//
 			// Rysowanie statku
 			Game.ship.draw();
+
+			Bullet.draw()
 
 		}
 	}
