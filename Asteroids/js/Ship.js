@@ -26,14 +26,8 @@ Ship.prototype.draw = function () {
 		this.a = this.a + 7 * (Game.key_37 ? -1 : 1);
 	}
 	if (Game.key_38) {
-		this.modX = Math.max(
-			-this.maxMod * VAR.d,
-			Math.min(
-				this.maxMod * VAR.d,
-				this.modX + Math.sin(Math.PI / 180 * this.a) * this.acc * VAR.d
-			)
-		)
-		this.modY = this.modY - Math.cos(Math.PI / 180 * this.a) * this.acc * VAR.d
+		this.modX = Math.max(-this.maxMod*VAR.d, Math.min(this.maxMod*VAR.d, this.modX+Math.sin(Math.PI/180*this.a)*this.acc*VAR.d))
+		this.modY = Math.max(-this.maxMod*VAR.d, Math.min(this.maxMod*VAR.d, this.modY-Math.cos(Math.PI/180*this.a)*this.acc*VAR.d))
 	} else {
 		this.modX = this.modX * 0.98
 
