@@ -28,7 +28,10 @@ Game = {
 		window.addEventListener('resize', Game.layout, false);
 		//
 		document.body.appendChild(Game.canvas);
-		// Inicjowanie statku
+		// Inicjowanie statku , kamieni
+		for (let i = 0; i < 4; i++) {
+			new Rock()
+		}
 		Game.ship = new Ship();
 		window.addEventListener('keydown', Game.onKey, false);
 		window.addEventListener('keyup', Game.onKey, false);
@@ -46,7 +49,7 @@ Game = {
 					Game.key_39 = false
 				} else if (event.keyCode == 39) {
 					Game.key_37 = false
-				}else if(event.keyCode == 32){
+				} else if (event.keyCode == 32) {
 					new Bullet()
 				}
 			} else if (event.type == 'keyup') {
@@ -87,6 +90,8 @@ Game = {
 			Game.ship.draw();
 
 			Bullet.draw()
+
+			Rock.draw()
 
 		}
 	}
