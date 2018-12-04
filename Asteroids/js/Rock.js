@@ -52,11 +52,15 @@ Rock.prototype.draw = function () {
 
 
     Game.ctx.beginPath()
+    Game.hit_ctx.beginPath()
     for (let i = 0; i < this.points.length; i++) {
         Game.ctx[i === 0 ? 'moveTo' : 'lineTo'](this.points[i].x * VAR.d + this.x, this.points[i].y * VAR.d + this.y)
+        Game.hit_ctx[i === 0 ? 'moveTo' : 'lineTo'](this.points[i].x * VAR.d + this.x, this.points[i].y * VAR.d + this.y)
     }
     Game.ctx.closePath()
     Game.ctx.stroke()
+    Game.hit_ctx.closePath()
+    Game.hit_ctx.fill()
 }
 Rock.draw = function () {
     Rock.num = 0
