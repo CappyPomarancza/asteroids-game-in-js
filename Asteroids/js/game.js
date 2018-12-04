@@ -23,19 +23,18 @@ Game = {
 		Game.hit_canvas = document.createElement('canvas')
 		// 
 		Game.ctx = Game.canvas.getContext('2d')
-		Game.hit_ctx = Game.hit_canvas.getContext('2d')
+		this.hit_ctx = this.hit_canvas.getContext('2d')
 		//
 		Game.layout();
 		// metoda layout odpali się przy każdej zmianie wielkości okna
 		window.addEventListener('resize', Game.layout, false);
 		//
-		document.body.appendChild(Game.hit_canvas)
 		document.body.appendChild(Game.canvas);
-		// Inicjowanie statku , kamieni
-		for (let i = 0; i < 4; i++) {
-			new Rock(1)
-		}
+		//
 		Game.ship = new Ship();
+		for (let i = 0; i < 3; i++) {
+			new Rock()
+		}
 		window.addEventListener('keydown', Game.onKey, false);
 		window.addEventListener('keyup', Game.onKey, false);
 
@@ -80,6 +79,11 @@ Game = {
 		Game.ctx.strokeStyle = 'white'
 		Game.ctx.lineWidth = 3
 		Game.ctx.lineJoin = 'round'
+		//
+		Game.hit_canvas.width = VAR.W
+		Game.hit_canvas.height = VAR.H 
+
+		Game.hit_ctx.fillStyle = '#ff0000'
 	},
 	// fps = 60
 	animationLoop: function (time) {
@@ -88,19 +92,11 @@ Game = {
 		if (time - VAR.lastTime >= 1000 / VAR.fps) {
 			VAR.lastTime = time;
 			//
-			// oczyszczenie canvas
 			Game.ctx.clearRect(0, 0, VAR.W, VAR.H)
-			Game.hit_ctx.clearRect(0, 0, VAR.W, VAR.H)
-			//
-			//
-			//
-			// Rysowanie statku
+			// 
 			Game.ship.draw();
-			Rock.draw()
 			Bullet.draw()
-
-
-
+			Rock.draw()
 		}
 	}
 }

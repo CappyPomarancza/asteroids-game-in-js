@@ -1,24 +1,19 @@
-Bullet.max = 5;
-
-Bullet.all = {};
-
-Bullet.speed = 0.022;
-
-Bullet.count = 0;
-Bullet.active_count = 0;
-
-Bullet.life = 35;
+Bullet.all = {}
+Bullet.count = 0
+Bullet.active_count = 0
+Bullet.max = 5
+Bullet.speed = 0.022
+Bullet.life = 35
 
 function Bullet() {
     if (Bullet.active_count < Bullet.max) {
-        Bullet.active_count++;
-        Bullet.count++;
+        Bullet.active_count++
+        Bullet.count++
 
+        this.id = Bullet.count.toString()
+        Bullet.all[this.id] = this
 
-        this.id = Bullet.count.toString();
-        Bullet.all[this.id] = this;
-
-        this.life = 0;
+        this.life = 0
         this.a = Game.ship.a;
 
         this.x = Game.ship.points[0].x
@@ -42,10 +37,11 @@ Bullet.draw = function () {
             Bullet.active_count--
             delete Bullet.all[b]
         } else {
+            // bollet become older 
             Bullet.all[b].life++
             Bullet.all[b].x += Math.sin(Math.PI / 180 * Bullet.all[b].a) * Bullet.speed * VAR.d
             Bullet.all[b].y -= Math.cos(Math.PI / 180 * Bullet.all[b].a) * Bullet.speed * VAR.d
-
+            // bollet fly to next window side 
             if (Bullet.all[b].x < 0) {
                 Bullet.all[b].x += VAR.W
             } else if (Bullet.all[b].x > VAR.W) {
