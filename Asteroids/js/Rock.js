@@ -1,5 +1,13 @@
 Rock.count = 0
 Rock.all = {}
+Rock.data = [
+    { r: 0.025, speed: 0.0005, minAngle: 60, maxAngle: 90 },
+    { r: 0.08, speed: 0.00025, minAngle: 50, maxAngle: 70 },
+    { r: 0.2, speed: 0.00006, minAngle: 30, maxAngle: 45 }
+
+]
+
+
 
 function Rock(size, x, y) {
     Rock.count++
@@ -10,14 +18,14 @@ function Rock(size, x, y) {
     this.x = x !== undefined ? x : (VAR.rand(0, 1) ? VAR.rand(0, 3) / 10 : VAR.rand(7, 10) / 10) * VAR.W
     this.y = y !== undefined ? y : (VAR.rand(0, 1) ? VAR.rand(0, 3) / 10 : VAR.rand(7, 10) / 10) * VAR.W
 
-    this.modX = 0.00006 * (VAR.rand(1, 10) * VAR.rand(0, 1) ? 1 : -1)
-    this.modY = 0.00006 * (VAR.rand(1, 10) * VAR.rand(0, 1) ? 1 : -1)
+    this.modX = Rock.data[this.size].speed * (VAR.rand(1, 10) * VAR.rand(0, 1) ? 1 : -1)
+    this.modY = Rock.data[this.size].speed * (VAR.rand(1, 10) * VAR.rand(0, 1) ? 1 : -1)
     //
     this.points = []
-    this.r = 0.2
+    this.r = Rock.data[this.size].r
     let a = 0
     while (a < 360) {
-        a += VAR.rand(30, 45)
+        a += VAR.rand(Rock.data[this.size].minAngle, Rock.data[this.size].maxAngle)
         this.points.push({
             x: Math.sin(Math.PI / 180 * a) * this.r,
             y: Math.cos(Math.PI / 180 * a) * this.r

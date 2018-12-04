@@ -30,7 +30,7 @@ Game = {
 		document.body.appendChild(Game.canvas);
 		// Inicjowanie statku , kamieni
 		for (let i = 0; i < 4; i++) {
-			new Rock()
+			new Rock(1)
 		}
 		Game.ship = new Ship();
 		window.addEventListener('keydown', Game.onKey, false);
