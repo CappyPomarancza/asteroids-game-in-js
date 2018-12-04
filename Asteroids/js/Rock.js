@@ -32,7 +32,16 @@ function Rock(size, x, y) {
         })
     }
 }
+Rock.prototype.hitTest = function (x, y) {
+    if (x > this.x - this.r * VAR.d && x < this.x + this.r * VAR.d && y > this.y - this.r * VAR.d && y < this.y + this.r * VAR.d) {
+       Game.ctx.cleatReact()
+        if (Game.hit_ctx.getImageData(x, y, 1, 1).data[0] == 255) {
+            return true
+        }
+    }
 
+    return false
+}
 Rock.prototype.draw = function () {
     this.x += this.modX * VAR.d
     this.y += this.modY * VAR.d
@@ -61,6 +70,9 @@ Rock.prototype.draw = function () {
     Game.ctx.stroke()
     Game.hit_ctx.closePath()
     Game.hit_ctx.fill()
+}
+Rock.prototype.remove = function () {
+    delete Rock.all[this.id]
 }
 Rock.draw = function () {
     Rock.num = 0

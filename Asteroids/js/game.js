@@ -96,10 +96,10 @@ Game = {
 			//
 			// Rysowanie statku
 			Game.ship.draw();
-
+			Rock.draw()
 			Bullet.draw()
 
-			Rock.draw()
+
 
 		}
 	}
