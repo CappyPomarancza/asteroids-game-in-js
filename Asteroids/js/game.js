@@ -101,6 +101,7 @@ Game = {
 			Game.ship.draw()
 			Bullet.draw()
 			Rock.draw()
+			Dot.draw()
 		}
 	}
 }

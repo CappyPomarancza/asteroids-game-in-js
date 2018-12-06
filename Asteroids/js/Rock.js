@@ -1,9 +1,9 @@
 Rock.count = 0
 Rock.all = {}
 Rock.data = [
-	{r: 0.025, speed:0.0005,    minAngle:60, maxAngle:90, minSmallerRocks:0, maxSmallerRocks:0},
-	{r: 0.08,  speed:0.00025,   minAngle:50, maxAngle:70, minSmallerRocks:2, maxSmallerRocks:3},
-	{r: 0.2,   speed:0.0000625, minAngle:30, maxAngle:45, minSmallerRocks:3, maxSmallerRocks:4}
+    { r: 0.025, speed: 0.0005, minAngle: 60, maxAngle: 90, minSmallerRocks: 0, maxSmallerRocks: 0 },
+    { r: 0.08, speed: 0.00025, minAngle: 50, maxAngle: 70, minSmallerRocks: 2, maxSmallerRocks: 3 },
+    { r: 0.2, speed: 0.0000625, minAngle: 30, maxAngle: 45, minSmallerRocks: 3, maxSmallerRocks: 4 }
 ]
 
 
@@ -84,6 +84,7 @@ Rock.prototype.remove = function () {
             new Rock(this.size - 1, this.x, this.y)
         }
     }
+    Dot.add(this.x, this.y)
     delete Rock.all[this.id]
 }
 Rock.draw = function () {
