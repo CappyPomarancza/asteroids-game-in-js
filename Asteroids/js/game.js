@@ -18,6 +18,7 @@ VAR = {
 Game = {
 	// init zostanie odpalone raz po załadowaniu strony.
 	init: function () {
+		Sound.init()
 		// 
 		Game.canvas = document.createElement('canvas')
 		Game.hit_canvas = document.createElement('canvas')
