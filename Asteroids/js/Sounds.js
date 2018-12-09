@@ -1,8 +1,8 @@
-Sound = {
+Sounds = {
     active: false,
     init: function () {
-        Sound.fx = new Howl({
-            urls: ['audio/asteroids.' + (Modernizer.audio.m4a ? 'm4a' : 'ogg')],
+        Sounds.fx = new Howl({
+            urls: ['audio/asteroids.ogg'],
             sprite: {
                 bum1: [0, 1100],
                 bum2: [1125, 1000],
@@ -10,15 +10,15 @@ Sound = {
                 win: [2475, 575],
                 thrust: [3100, 290]
             },
-            onload: Sound.loaded
+            onload: Sounds.loaded
         })
     },
     loaded: function () {
-        Sound.active = true
+        Sounds.active = true
     },
     play: function (s) {
-        if (Sound.active) {
-            Sound.fx.play(s)
+        if (Sounds.active) {
+            Sounds.fx.play(s)
         }
     }
 }

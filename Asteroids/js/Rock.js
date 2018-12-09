@@ -79,6 +79,7 @@ Rock.prototype.draw = function () {
 
 }
 Rock.prototype.remove = function () {
+    Sounds.play('bum'+ VAR.rand(1,2))
     if (this.size > 0) {
         for (let i = 0, j = VAR.rand(Rock.data[this.size].minSmallerRocks, Rock.data[this.size].maxSmallerRocks); i < j; i++) {
             new Rock(this.size - 1, this.x, this.y)
