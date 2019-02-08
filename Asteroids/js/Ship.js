@@ -1,24 +1,26 @@
 function Ship() {
 	//  
 	// Statek to trójkąt wpisany w okrąg. O jego wielkości decyduje promień okręgu.
-	this.r = 0.04;
+	this.r = 0.04
 	// Patrząc na okrąg i zakładając, że linia idąca pionowo w dół od środka okręgu idze pod kątem 0 stopni, punkt, który będzie dziobem statku jest wyznaczony przez przecięcie okręgu przez odcinek znajdujący się pod kątem 180 stopni
 	// Za to rufę statku wyznaczaja przecięcie okręgu przez odcinki pod kątem 50 i -50 stopni.
-	this.rear_a = 50;
+	this.rear_a = 50
 	// Kąt obrotu statku
-	this.a = 0;
+	this.a = 0
 	// X i Y  w pixelach. Pozwoli to potem uniknąć problemów z kierunkiem lotu i kolizjami statku, pocisków i asteroidów
-	this.x = VAR.W / 2;
-	this.y = VAR.H / 2;
+	this.x = VAR.W / 2
+	this.y = VAR.H / 2
 
-	this.modX = 0;
-	this.modY = 0;
+	this.modX = 0
+	this.modY = 0
 
-	this.acc = 0.0004;
+	this.acc = 0.0004
 
-	this.maxMod = 0.019;
+	this.maxMod = 0.019
 	//
-	this.points = [{}, {}, {}];
+	this.points = [{}, {}, {}]
+	//
+	this.lives = 3
 }
 Ship.prototype.hitTest = function () {
 	for (let i = 0; i < this.points.length; i++) {

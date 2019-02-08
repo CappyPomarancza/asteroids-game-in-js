@@ -22,9 +22,11 @@ Game = {
 		// 
 		Game.canvas = document.createElement('canvas')
 		Game.hit_canvas = document.createElement('canvas')
+		Game.end_canvas = document.createElement('canvas')
 		// 
 		Game.ctx = Game.canvas.getContext('2d')
 		this.hit_ctx = this.hit_canvas.getContext('2d')
+		this.end_ctx = this.end_canvas.getContext('2d')
 		//
 		Game.layout()
 		// metoda layout odpali się przy każdej zmianie wielkości okna
@@ -80,6 +82,10 @@ Game = {
 		Game.hit_canvas.height = VAR.H
 		Game.hit_ctx.fillStyle = 'red'
 		//
+		//Game.end_canvas.width = VAR.W / 2
+		//Game.end_canvas.height =VAR.H / 2
+		//Game.end_ctx.fillStyle = 'blue'
+		//
 		Game.ctx.fillStyle = 'white'
 		Game.ctx.strokeStyle = 'white'
 		Game.ctx.lineWidth = 3
@@ -87,8 +93,13 @@ Game = {
 		//
 		Game.hit_canvas.width = VAR.W
 		Game.hit_canvas.height = VAR.H
+		//
+		//Game.end_canvas.width = VAR.W / 2
+		//Game.end_canvas.height =VAR.H / 2
+		//
 
 		Game.hit_ctx.fillStyle = '#ff0000'
+		//Game.end_ctx.fillStyle = '#0000ff'
 	},
 	// fps = 60
 	animationLoop: function (time) {
