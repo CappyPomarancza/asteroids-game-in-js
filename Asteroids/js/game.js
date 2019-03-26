@@ -40,13 +40,29 @@ Game = {
 		}
 		window.addEventListener('keydown', Game.onKey, false)
 		window.addEventListener('keyup', Game.onKey, false)
-
 		//
 		Game.animationLoop()
 	},
 	stop: function () {
 		window.removeEventListener('keydown', Game.onKey)
 		window.removeEventListener('keyup', Game.onKey)
+		let div = document.createElement('div')
+		div.style.position = 'absolute'
+		div.style.marginTop= '30%'
+		div.style.display='grid'
+		div.style.alignContent = 'space-around'
+		div.style.width = '100%'
+		div.style.height = '70px'
+		div.style.backgroundColor = '#0c0e0e'
+		div.style.fontSize = '50px'
+		div.style.textAlign = 'center'
+		div.style.color = 'white'
+		div.innerHTML = 'Game Over'
+
+
+		document.body.appendChild(div)
+		//document.getElementsById('main').appendChild(div)
+
 	},
 	onKey: function (event) {
 		if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40 || event.keyCode == 32) {
