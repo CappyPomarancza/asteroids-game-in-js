@@ -7,6 +7,7 @@ VAR = {
 	fps: 60,
 	W: 0,
 	H: 0,
+	rocksNumber: 1,
 	lastTime: 0,
 	lastUpdate: -1,
 	rand: function (min, max) {
@@ -35,7 +36,7 @@ Game = {
 		document.body.appendChild(Game.canvas)
 		//
 		Game.ship = new Ship();
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < VAR.rocksNumber; i++) {
 			new Rock()
 		}
 		window.addEventListener('keydown', Game.onKey, false)
@@ -43,13 +44,30 @@ Game = {
 		//
 		Game.animationLoop()
 	},
+	nextLevel: function () {
+		window.removeEventListener('keydown', Game.onKey)
+		window.removeEventListener('keyup', Game.onKey)
+		let level = document.createElement('div')
+		level.style.position = 'absolute'
+		level.style.marginTop = '30%'
+		level.style.display = 'grid'
+		level.style.alignContent = 'space-around'
+		level.style.width = '100%'
+		level.style.height = '70px'
+		level.style.backgroundColor = '#0c0e0e'
+		level.style.fontSize = '50px'
+		level.style.textAlign = 'center'
+		level.style.color = 'white'
+		level.innerHTML = 'Congratulation!!!'
+		document.body.appendChild(level)
+	},
 	stop: function () {
 		window.removeEventListener('keydown', Game.onKey)
 		window.removeEventListener('keyup', Game.onKey)
 		let div = document.createElement('div')
 		div.style.position = 'absolute'
-		div.style.marginTop= '30%'
-		div.style.display='grid'
+		div.style.marginTop = '30%'
+		div.style.display = 'grid'
 		div.style.alignContent = 'space-around'
 		div.style.width = '100%'
 		div.style.height = '70px'
@@ -62,7 +80,7 @@ Game = {
 
 		document.body.appendChild(div)
 		//document.getElementsById('main').appendChild(div)
-
+		console.log(Rock.count)
 	},
 	onKey: function (event) {
 		if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40 || event.keyCode == 32) {
@@ -98,10 +116,6 @@ Game = {
 		Game.hit_canvas.height = VAR.H
 		Game.hit_ctx.fillStyle = 'red'
 		//
-		//Game.end_canvas.width = VAR.W / 2
-		//Game.end_canvas.height =VAR.H / 2
-		//Game.end_ctx.fillStyle = 'blue'
-		//
 		Game.ctx.fillStyle = 'white'
 		Game.ctx.strokeStyle = 'white'
 		Game.ctx.lineWidth = 3
@@ -110,12 +124,8 @@ Game = {
 		Game.hit_canvas.width = VAR.W
 		Game.hit_canvas.height = VAR.H
 		//
-		//Game.end_canvas.width = VAR.W / 2
-		//Game.end_canvas.height =VAR.H / 2
-		//
 
 		Game.hit_ctx.fillStyle = '#ff0000'
-		//Game.end_ctx.fillStyle = '#0000ff'
 	},
 	// fps = 60
 	animationLoop: function (time) {

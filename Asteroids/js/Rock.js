@@ -1,4 +1,5 @@
 Rock.count = 0
+Rock.quantity = 0
 Rock.all = {}
 Rock.data = [
     { r: 0.025, speed: 0.0005, minAngle: 60, maxAngle: 90, minSmallerRocks: 0, maxSmallerRocks: 0 },
@@ -10,6 +11,7 @@ Rock.data = [
 
 function Rock(size, x, y) {
     Rock.count++
+    Rock.quantity ++
     this.id = Rock.count
     Rock.all[this.id] = this
     //

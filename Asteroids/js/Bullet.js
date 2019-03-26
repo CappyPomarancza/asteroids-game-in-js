@@ -29,6 +29,7 @@ Bullet.draw = function () {
         for (let r in Rock.all) {
             if (Rock.all[r].hitTest(Bullet.all[b].x, Bullet.all[b].y)) {
                 Bullet.all[b].life += Bullet.life
+                Rock.quantity --
                 Rock.all[r].remove()
                 break
             }

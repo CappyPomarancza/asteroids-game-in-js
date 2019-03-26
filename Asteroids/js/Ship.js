@@ -40,6 +40,9 @@ Ship.prototype.draw = function () {
 			this.destroyed = true
 			Game.stop()
 		}
+		if(Rock.quantity === 0){
+			Game.nextLevel()
+		}
 		if (Game.key_37 || Game.key_39) {
 			this.a = this.a + 7 * (Game.key_37 ? -1 : 1);
 		}
