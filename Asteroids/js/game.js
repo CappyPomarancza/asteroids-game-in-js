@@ -23,11 +23,9 @@ Game = {
 		// 
 		Game.canvas = document.createElement('canvas')
 		Game.hit_canvas = document.createElement('canvas')
-		Game.end_canvas = document.createElement('canvas')
 		// 
 		Game.ctx = Game.canvas.getContext('2d')
 		this.hit_ctx = this.hit_canvas.getContext('2d')
-		this.end_ctx = this.end_canvas.getContext('2d')
 		//
 		Game.layout()
 		// metoda layout odpali się przy każdej zmianie wielkości okna
@@ -58,31 +56,31 @@ Game = {
 		level.style.fontSize = '50px'
 		level.style.textAlign = 'center'
 		level.style.color = 'white'
-		level.innerHTML = 'Congratulation!!!'
+		level.innerText = 'Congratulation!!!'
 		document.body.appendChild(level)
 	},
 	stop: function () {
 		window.removeEventListener('keydown', Game.onKey)
 		window.removeEventListener('keyup', Game.onKey)
 		let div = document.createElement('div')
+		div.className = 'game_over'
 		div.style.position = 'absolute'
 		div.style.marginTop = '30%'
 		div.style.display = 'grid'
 		div.style.alignContent = 'space-around'
 		div.style.width = '100%'
-		div.style.height = '70px'
 		div.style.backgroundColor = '#0c0e0e'
 		div.style.fontSize = '50px'
 		div.style.textAlign = 'center'
 		div.style.color = 'white'
-		div.innerHTML = 'Game Over'
-
+		div.innerText = 'Game Over \n  Your Score: ' + Rock.score + '\n Click to play again'
 
 		document.body.appendChild(div)
-		//document.getElementsById('main').appendChild(div)
-		console.log(Rock.count)
+		window.addEventListener('click', function () { document.location.reload(true) })
+
 	},
 	onKey: function (event) {
+		console.log(event.keyCode)
 		if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40 || event.keyCode == 32) {
 
 			if (event.type == 'keydown' && !Game['key_' + event.keyCode]) {

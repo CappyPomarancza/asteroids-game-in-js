@@ -19,8 +19,6 @@ function Bullet() {
 
         this.x = Game.ship.points[0].x
         this.y = Game.ship.points[0].y
-
-
     }
 }
 
@@ -30,6 +28,7 @@ Bullet.draw = function () {
             if (Rock.all[r].hitTest(Bullet.all[b].x, Bullet.all[b].y)) {
                 Bullet.all[b].life += Bullet.life
                 Rock.quantity --
+                Rock.score ++
                 Rock.all[r].remove()
                 break
             }
